@@ -4,6 +4,7 @@ require_once './inc/connect.php';
 session_start();
 
 echo $_SESSION['user'];
+
 function sanitize($data){
     global $conn;
     $data = trim($data);

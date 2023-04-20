@@ -10,6 +10,9 @@
 </head>
 <body>
 <?php session_start(); ?>
+<?php
+    require_once 'inc/connect.php';
+?>
 <header>
     <div class="umang_navbar_wrapper">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,10 +25,7 @@
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">All Matches</a>
+                            <a class="nav-link" href="http://localhost/booking/">Home</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -34,6 +34,11 @@
                                 ?>
                                     <li class="nav-item">
                                         <a class="nav-link" href="logout.php">Logout</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="http://localhost/booking/myticket.php" class="nav-link">
+                                            My Tickets
+                                        </a>
                                     </li>
                                 <?php
                             }

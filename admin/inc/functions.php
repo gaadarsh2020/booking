@@ -1,12 +1,42 @@
 <?php
 
+session_start();
+
 require_once 'connect.php';
 
+/* 
+require functional pages
+*/
+require_once 'functions/matches.php';
+require_once 'functions/stadium.php';
+require_once 'functions/teams.php';
+require_once 'functions/booking.php';
+
+
+
+// admin match page
 function matchpage(){
+
+    if(isset($_GET['action'])){
+        $action = $_GET['action'] ? $_GET['action'] : 'list';
+    }
+    else{
+        $action = 'list';
+    }
     
+
+    switch($action){
+        case 'list':
+            listMatches();
+        break;
+
+        case 'add':
+            addMatches();
+        break;
+    }
 }
 
-
+// admin stadium page
 function stadiumpage(){
 
     if(isset($_GET['action'])){
@@ -29,81 +59,58 @@ function stadiumpage(){
     
 }
 
-function listStadium(){
-    global $conn;
-    //get all stadiums
-    $sql = 'select * from stadium';
-    $result = mysqli_query($conn, $sql);
+// admin teams page
+function teamspage(){
 
-    if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-        ?>
-            <div class="btn_wrapper">
-                <a href="?page=stadium&action=add">
-                    <button class="btn btn-primary">
-                        Add New
-                    </button>
-                </a>
-            </div>
-            
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>VIP</th>
-                        <th>Platinum</th>
-                        <th>Gold</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        while($row = mysqli_fetch_assoc($result)) {
-                            ?>
-                                <tr>
-                                    <td><?php echo $row['sName'] ?></td>
-                                    <td><?php echo $row['a'] ?></td>
-                                    <td><?php echo $row['b'] ?></td>
-                                    <td><?php echo $row['c'] ?></td>
-                                    <td><?php echo $row['description'] ?></td>
-                                </tr>
-                            <?php
-                        }
-                    ?>
-                </tbody>
-            </table>
-        <?php
+    if(isset($_GET['action'])){
+        $action = $_GET['action'] ? $_GET['action'] : 'list';
     }
-    else {
-        echo "0 results";
+    else{
+        $action = 'list';
+    }
+    
+
+    switch($action){
+        case 'list':
+            listTeams();
+        break;
+
+        case 'add':
+            addTeams();
+        break;
+    }
+    
+}
+
+//admin logout page
+
+function logout(){
+    session_unset();
+    session_destroy();
+
+    header('Location: http://localhost/booking/');
+}
+
+//admin booking page
+ function matchbooking(){
+   
+    if(isset($_GET['action'])){
+        $action = $_GET['action'] ? $_GET['action'] : 'list';
+    }
+    else{
+        $action = 'list';
+    }
+    
+
+    switch($action){
+        case 'list':
+            listBookings();
+        break;
+
+        case 'add':
+            addBookings();
+        break;
     }
 
-   mysqli_close($conn);
-}
-function addStadium(){
-    ?>
-        <form action="inc/process.php" method="post">
-            <div class="form-group">
-                <label for="sname">Name</label>
-                <input type="text" id="sname" name="sname" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label for="vipseat">VIP Seat Capacity</label>
-                <input type="text" id="vipseat" name="vipseat" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label for="goldseat">Gold Seat Capacity</label>
-                <input type="text" id="goldseat" name="goldseat" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label for="platinumseat">Platinum Seat Capacity</label>
-                <input type="text" id="platinumseat" name="platinumseat" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea name="sdescription" id="" cols="30" rows="10" class="form-control" id="description" name="description"></textarea>
-            </div>
-            <input type="submit" name="stadiumSubmit" value="Add Stadium" class="form-control btn btn-primary">
-        </form>
-    <?php
-}
+
+ }

@@ -18,19 +18,19 @@
                 break;
 
             case 'team':
-                echo 'team Page';
+                teamspage();
                 break;
                 
             case 'stadium':
                 stadiumpage();
                 break;
             
-            case 'booking':
-                echo 'booking Page';
+            case 'bookings':
+                matchbooking();
                 break;
 
             case 'logout':
-                echo 'logout Page';
+                logout();
                 break;
                 
             default:
